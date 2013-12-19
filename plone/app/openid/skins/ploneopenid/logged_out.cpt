@@ -6,9 +6,22 @@
       i18n:domain="plone">
 
       <head>
-          <script type="text/javascript" metal:fill-slot="javascript_head_slot">
-          </script>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript" src="jquery.openid.js"></script>
+        <script type="text/javascript">
+                jq(document).ready(function() {
+                        openid.init('__ac_identity_url');
+                        jq("#openid_selector").show();
+                        jq("#openid_plone_default").hide().appendTo("#openid_selector");
+                        jq("#openid_toggle_ui").click(function() {
+                            jq("#openid_plone_selector").toggle();
+                            jq("#openid_plone_default").toggle();
+                        });
+                });
+        </script>
+    </metal:javascript>
     <metal:css fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css" media="screen" href="jquery.openid.css" />
       <style type="text/css" media="all">
         input.openidUrl {
           background: White url(openid-icon.gif) 2px 3px no-repeat;

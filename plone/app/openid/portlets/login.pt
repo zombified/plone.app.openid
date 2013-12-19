@@ -19,10 +19,12 @@
         <input type="hidden" name="form.submitted" value="1" />
         <input type="hidden" name="came_from" value=""
                tal:attributes="value context/@@plone_context_state/current_base_url" />
+               
+        <a tal:attributes="href string:${here/portal_url}/login_form;"><img alt="openid selector" tal:attributes="src string:${here/portal_url}/openid-selector-login.png;" /></a>
 
-        <div class="field">
-          <label for="" i18n:translate="label_identity_url"
-                 tal:attributes="for ac_identity">OpenID URL</label>
+        <div class="field" style="text-align: center">
+          <label for="" i18n:translate="label_identity_url_quick"
+                 tal:attributes="for ac_identity">Quick log in OpenID URL</label>
           <br/>
 
           <input type="text"
@@ -31,11 +33,11 @@
                   style=""
                   tal:attributes="name ac_identity;
                                   id ac_identity;
-                                  style string:background: url(${here/portal_url}/openid-icon.gif) no-repeat;; padding-left: 16px;"
+                                  style string:background: url(${here/portal_url}/openid-icon.gif) no-repeat;; padding-left: 16px;; text-align: left;"
            />
          </div>
 
-         <div class="formControls">
+         <div class="formControls" style="text-align: center">
            <input class="context"
                   type="submit"
                   name="openid_submit"

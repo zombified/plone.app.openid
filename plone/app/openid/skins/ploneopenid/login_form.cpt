@@ -5,9 +5,22 @@
       metal:use-macro="context/main_template/macros/master"
       i18n:domain="plone">
 <head>
-    <script type="text/javascript" metal:fill-slot="javascript_head_slot">
-    </script>
+    <metal:javascript fill-slot="javascript_head_slot">
+        <script type="text/javascript" src="jquery.openid.js"></script>
+        <script type="text/javascript">
+                jq(document).ready(function() {
+                        openid.init('__ac_identity_url');
+                        jq("#openid_selector").show();
+                        jq("#openid_plone_default").hide().appendTo("#openid_selector");
+                        jq("#openid_toggle_ui").click(function() {
+                            jq("#openid_plone_selector").toggle();
+                            jq("#openid_plone_default").toggle();
+                        });
+                });
+        </script>
+    </metal:javascript>
     <metal:css fill-slot="style_slot">
+      <link rel="stylesheet" type="text/css" media="screen" href="jquery.openid.css" />
       <style type="text/css" media="all">
         input.openidUrl {
           background: White url(openid-icon.gif) 2px 3px no-repeat;
@@ -54,6 +67,7 @@
                 <dd id="fieldset-openid-login">
 
                     <form tal:attributes="action python:context.absolute_url()+'/'+template.id"
+                          id="openid_form"
                           class="enableAutoFocus"
                           method="post"
                           tal:condition="python:auth">
@@ -63,6 +77,35 @@
                              name="came_from"
                              value=""
                              tal:attributes="value came_from" />
+
+
+
+
+<!-- ned changes -->                     
+                <fieldset id="openid_selector" style="display:none">
+                    <legend>
+                        <input id="openid_toggle_ui" type="checkbox" checked="checked" />
+                        <span i18n:translate="help_openid_identity_existing_choose">Sign-in using an existing account from another provider or uncheck to enter a URL</span>
+                    </legend>
+                    <div id="openid_plone_selector">
+                        <div id="openid_choice">
+                                <p i18n:translate="help_openid_identity_existing">Please click your account provider:</p>
+                                <div id="openid_btns"></div>
+                        </div>
+                        <div id="openid_input_area">
+                                <input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
+                                <input id="openid_submit" type="submit" i18n:attributes="value label_openid_log_in;" value="Log in"/>
+                        </div>
+                        <noscript>
+                                <p>OpenID is service that allows you to log-on to many different websites using a single indentity.
+                                Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
+                        </noscript>
+                    </div>
+                </fieldset>
+                <div id="openid_plone_default">
+<!-- ned changes -->                     
+
+
 
 
                          <h3 i18n:translate="help_openid_identity_url">
@@ -106,6 +149,13 @@
                            <a href="http://openid.net" class="discreet link-plain"
                               i18n:translate="info_openid">What is OpenID?</a>
                       </div>
+
+
+<!-- ned changes -->                     
+                </div>
+<!-- ned changes -->                     
+
+
 
                    </form>
                </dd>
