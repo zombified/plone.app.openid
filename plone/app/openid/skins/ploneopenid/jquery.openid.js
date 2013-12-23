@@ -200,7 +200,7 @@ openid = {
                 this.demo = demoMode;
         }
 };
-})(jq);
+})(jQuery);
 
 /*
         Simple OpenID Plugin

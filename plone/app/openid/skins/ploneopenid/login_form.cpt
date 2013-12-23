@@ -8,6 +8,7 @@
     <metal:javascript fill-slot="javascript_head_slot">
         <script type="text/javascript" src="jquery.openid.js"></script>
         <script type="text/javascript">
+            (function(jq){
                 jq(document).ready(function() {
                         openid.init('__ac_identity_url');
                         jq("#openid_selector").show();
@@ -17,6 +18,7 @@
                             jq("#openid_plone_default").toggle();
                         });
                 });
+            })(jQuery);
         </script>
     </metal:javascript>
     <metal:css fill-slot="style_slot">
